@@ -1,0 +1,58 @@
+import React, { useState, useEffect } from 'react';
+
+import {CanvasControl} from './utils';
+
+interface canvaProps {
+  width:number
+  height:number
+  offsetX?:number
+  offtsetY?:number
+}
+
+type cancasStateType = {
+  ref:React.RefObject<HTMLCanvasElement>
+  util?:CanvasControl
+}
+
+export function CanvasComp(props:canvaProps){
+
+  const refreshRate = 20
+
+  const canvas_ref = React.createRef<HTMLCanvasElement>()
+  const cancasState: cancasStateType = {
+    ref: canvas_ref,
+    util: undefined 
+    }
+  const [canvas,setCanvas] = useState(cancasState);
+    
+  // This function happen once the component is mounted the first time
+  useEffect(()=>{
+    const canvas_current = canvas_ref.current
+    
+    const canvas_util = new CanvasControl(canvas_current!)
+
+    setCanvas({
+      ref: canvas_ref,
+      util: canvas_util
+    })
+  }, [])
+
+  // This function happen every time the component is updated
+  useEffect(()=>{
+    if (canvas.util === undefined) 
+      {return} // Makes this safe to do canvas-util operations
+
+    canvas.util.setup(props)
+    
+    setTimeout(()=> {
+      canvas.util!.startAnimation(props)()
+    }, refreshRate);
+  })
+
+
+  return(
+      <canvas ref={canvas.ref} //onClick={props.onPress()} 
+          width={props.width} height={props.height}
+          style={{border:"3px dotted #000000"}}/>
+  )
+}
