@@ -4,6 +4,6 @@ import {CanvasComp} from "../src/canvas/component"
 
 export default function home(){
     return (
-            <CanvasComp width={500} height={500}/>
+        <CanvasComp width={500} height={500}/>
     )
 }

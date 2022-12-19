@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import {CanvasControl} from './utils';
 
+export interface canvasUtilBase {
+  canvas:HTMLCanvasElement
+  ctx:CanvasRenderingContext2D
+  setup(props:any): void
+  startAnimation(props:any): (()=> void)
+}
+
 interface canvaProps {
   width:number
   height:number
@@ -11,7 +18,7 @@ interface canvaProps {
 
 type cancasStateType = {
   ref:React.RefObject<HTMLCanvasElement>
-  util?:CanvasControl
+  util?:canvasUtilBase
 }
 
 export function CanvasComp(props:canvaProps){

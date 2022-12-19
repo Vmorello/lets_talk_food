@@ -1,16 +1,10 @@
-interface canvasUtilBase {
-  canvas:HTMLCanvasElement
-  ctx:CanvasRenderingContext2D
-  setup(props:any): void
-  startAnimation(props:any): (()=> void)
-}
+import {canvasUtilBase} from "./component"
 
 interface setupBase {
 }
 
 interface startAnimationBase{
 }
-
 
 
 export class CanvasControl implements canvasUtilBase{
@@ -30,7 +24,7 @@ export class CanvasControl implements canvasUtilBase{
     }
 
     setup(props:setupBase){
-      // this.clear()
+      this.clear()
     }
 
     startAnimation(props:startAnimationBase){
